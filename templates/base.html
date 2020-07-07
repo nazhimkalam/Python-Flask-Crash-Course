@@ -5,6 +5,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		{% block head %} {% endblock %}   <!--this is like what you need to change from outside-->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/new.css') }}">
+
 	</head>
 	<body>
 		{% block body %} {% endblock %}   <!--this is like what you need to change from outside-->

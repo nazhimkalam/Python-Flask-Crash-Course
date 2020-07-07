@@ -12,13 +12,12 @@ allposts = [
     {
         "title":"Post 01",
         "content":"Content for my post 01 ..... is some random text some random text some random text ",
-        "author":"Nazhim"
+        "author":"Nazhim",
     },
     {
         "title":"Post 02",
-        "content":"Content for my post 02 ..... is some random text some random text some random text "
+        "content":"Content for my post 02 ..... is some random text some random text some random text ",
     }
-    
 ]
 
 @app.route('/')

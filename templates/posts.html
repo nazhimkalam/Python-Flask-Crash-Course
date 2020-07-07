@@ -1,0 +1,25 @@
+{% extends 'base.html'%}
+<!--inherits the base.html content-->
+
+{% block head %}
+<title>
+	Posts
+</title>
+{% endblock %} 
+
+
+{% block body %} 
+
+    {% for post in myPosts %}
+        <h1>{{ post.title }}</h1>
+
+        {% if post.author %}
+            <h2>By: {{ post.author }}</h2>
+        {% else %}
+            <h2>By: Unknown </h2>
+        {% endif %}
+
+        <h2>{{ post.content }}</h2>
+    {% endfor %} 
+
+{% endblock %}

@@ -1,0 +1,8 @@
+from app import db
+from app import BlogPost
+db.create_all()
+BlogPost.query.all()
+db.session.add(BlogPost(title="title_01", content="my content_1", author="author_1"))
+db.session.add(BlogPost(title="title_02", content="my content_2", author="author_2"))
+db.session.add(BlogPost(title="title_03", content="my content_3", author="author_3"))
+BlogPost.query.all()

@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 # Creating Flask app to start working
@@ -21,29 +21,29 @@ class BlogPost(db.Model):
         return "Blog post " + str(self.id)
 
 
-allposts = [
-    {
-        "title": "Post 01",
-        "content": "Content for my post 01 ..... is some random text some random text some random text ",
-        "author": "Nazhim",
-    },
-    {
-        "title": "Post 02",
-        "content": "Content for my post 02 ..... is some random text some random text some random text ",
-    }
-]
-
-
 @newApp.route('/')
 def homePage():
     return render_template('index.html')
 
 
-@newApp.route('/posts')
+@newApp.route('/posts', methods=['GET', 'POST'])
 def postsPage():
-    return render_template('posts.html', myPosts=allposts)
 
+    if request.method == 'POST':
 
-# main program to run
-if __name__ == "__main__":
-    newApp.run(debug=True)
+        post_title = request.form['title']
+        post_content = request.form['content']
+        post_author = request.form['author']
+
+        # adding an object to the database
+        new_post = BlogPost(title=post_title, content=post_content, author=post_author)  
+        db.session.add(new_post)
+
+        # It's mandatory to commit
+        db.session.commit()
+
+        return redirect('/posts')
+    else:
+        allposts = BlogPost.query.all()
+        return render_template('posts.html', myPosts=allposts)
+

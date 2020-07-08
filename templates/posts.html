@@ -2,13 +2,30 @@
 <!--inherits the base.html content-->
 
 {% block head %}
-<title>
-	Posts
-</title>
+    <title>
+        Posts
+    </title>
 {% endblock %} 
 
-
 {% block body %} 
+
+    <hr>
+
+        <h2>Create New Blog Post</h2>
+
+        <form action="/posts" method="POST">
+            Title: <input type="text" name="title" id="title">
+            <br>
+            Post: <input type="text" name="content" id="content">
+            <br>
+            Author: <input type="text" name="author" id="author">
+            <br>
+            <input type="submit" value="Post">
+        </form>
+    <hr>
+
+    <h2>All Posts</h2>
+    <hr>
 
     {% for post in myPosts %}
         <h1>{{ post.title }}</h1>
@@ -20,6 +37,11 @@
         {% endif %}
 
         <h2>{{ post.content }}</h2>
+
+        <button><a href="/posts/delete/{{post.id}}">Delete</a></button>
+        <button><a href="/posts/edit/{{post.id}}">Edit</a></button>
+        <hr>
+
     {% endfor %} 
 
 {% endblock %}

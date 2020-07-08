@@ -47,3 +47,30 @@ def postsPage():
         allposts = BlogPost.query.all()
         return render_template('posts.html', myPosts=allposts)
 
+@newApp.route('/posts/delete/<int:id>')
+def delete(id):
+    post = BlogPost.query.get_or_404(id)  # returns the post by ID
+    db.session.delete(post)
+    db.session.commit()
+    return redirect('/posts')
+
+@newApp.route('/posts/edit/<int:id>', methods=['GET','POST'])
+def edit(id):
+    post = BlogPost.query.get_or_404(id)
+    if request.method == 'POST':
+        post.title = request.form['title']
+        post.author = request.form['author']
+        post.content = request.form['content']
+
+        db.session.commit()
+
+        return redirect('/posts')   # we redirect here to show all the posts with the updated posts as well
+    
+    else:
+
+        return render_template('edit.html', post = post)    
+
+# main program to run
+if __name__ == "__main__":
+    newApp.run(debug=True)
+

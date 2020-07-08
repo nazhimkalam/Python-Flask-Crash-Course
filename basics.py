@@ -45,3 +45,5 @@ def both():
 # main program to run
 if __name__ == "__main__":              # runs in the debug mode to spot errors easily and auto complie 
     myApp.run(debug=True)
+
+

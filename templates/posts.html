@@ -2,48 +2,72 @@
 <!--inherits the base.html content-->
 
 {% block head %}
-    <title>
-        Posts
-    </title>
-{% endblock %} 
+<title>
+	Posts
+</title>
+{% endblock %} {% block body %}
+<div class="container mb-4">
+    <br>
 
-{% block body %} 
+	<h2 class="mt-4 mb-4">Create New Blog Post</h2>
+    <br>
+	<form action="/posts" method="POST">
+		<div class="input-group mb-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Title</span>
+            </div>
+			<input type="text" placeholder="Enter title..." class="form-control" id="title" name="title" />
+        </div>
 
-    <hr>
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Content</span>
+            </div>
+            <textarea placeholder="Enter content..." class="form-control" aria-label="With textarea" id="content" name="content"></textarea>
+        </div>
 
-        <h2>Create New Blog Post</h2>
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Author</span>
+            </div>
+			<input type="text" placeholder="Enter author..." class="form-control" id="author" name="author" />
+        </div>
 
-        <form action="/posts" method="POST">
-            Title: <input type="text" name="title" id="title">
-            <br>
-            Post: <input type="text" name="content" id="content">
-            <br>
-            Author: <input type="text" name="author" id="author">
-            <br>
-            <input type="submit" value="Post">
-        </form>
-    <hr>
+		<input type="submit" value="Post" class="btn btn-primary mb-4" />
+	</form>
 
-    <h2>All Posts</h2>
-    <hr>
+	<hr />
 
-    {% for post in myPosts %}
-        <h1>{{ post.title }}</h1>
+	<div class="display-4 mb-2">All Posts</div>
+	{% for post in myPosts %}
 
-        {% if post.author %}
-            <h2>By: {{ post.author }}</h2>
-        {% else %}
-            <h2>By: Unknown </h2>
-        {% endif %}
+	<div class="card mb-3">
+		<div class="card-body">
+			<h1 class="card-header mb-3 lead">Post: {{post.id}}</h1>
 
-        <h2>{{ post.content }}</h2>
+			<div class="card-body">
+                <h2 class="mb-3 lead">Title: {{ post.title }}</h2>
+				{% if post.author %}
+				    <h2 class="mb-3 lead">By: {{ post.author }}</h2>
+				{% else %}
+				    <h2 class="mb-3 lead">By: Unknown</h2>
+                {% endif %}
+                
+				<h2 class="mb-3 lead">Content: {{ post.content }}</h2>
+			</div>
 
-        <button><a href="/posts/delete/{{post.id}}">Delete</a></button>
-        <button><a href="/posts/edit/{{post.id}}">Edit</a></button>
-        <hr>
+			<div class="card-footer">
+				<button class="btn btn-danger btn-sm">
+					<a href="/posts/delete/{{post.id}}" class="text-light">Delete</a>
+				</button>
+				<button class="btn btn-warning btn-sm">
+					<a href="/posts/edit/{{post.id}}" class="text-light">Edit</a>
+				</button>
+			</div>
+		</div>
+	</div>
 
-    {% endfor %} 
+	{% endfor %}
+</div>
 
 {% endblock %}
-
-

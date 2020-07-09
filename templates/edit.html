@@ -2,26 +2,41 @@
 <!--inherits the base.html content-->
 
 {% block head %}
-    <title>
-        Edit post
-    </title>
-{% endblock %} 
+<title>
+	Edit post
+</title>
+{% endblock %} {% block body %}
+<div class="container">
+	<h1 class="display-4 mb-3">Editing post</h1>
+	<hr />
 
-{% block body %}    
-    <h1>Editing post</h1>
-    <hr>    
+	<div class="h4">Edit:</div>
 
-    <h2>Edit:</h2>
+	<form action="/posts/edit/{{post.id}}" method="POST">
+		<div class="input-group mb-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Title</span>
+            </div>
+			<input type="text" value="{{post.title}}" class="form-control" id="title" name="title" />
+        </div>
 
-    <form action="/posts/edit/{{post.id}}" method="POST">
-        Title: <input type="text" name="title" id="title" value="{{post.title}}">
-        <br>
-        Post: <input type="text" name="content" id="content" value="{{post.content}}">
-        <br>
-        Author: <input type="text" name="author" id="author" value="{{post.author}}">
-        <br>
-        <input type="submit" value="Save">
-    </form>
-    <hr>
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Content</span>
+            </div>
+            <textarea class="form-control" aria-label="With textarea" id="content" name="content">{{post.content}}</textarea>
+        </div>
+
+        <div class="input-group mb-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Author</span>
+            </div>
+			<input type="text" value="{{post.author}}" class="form-control" id="author" name="author" />
+        </div>
+		<input type="submit" value="Save" class="btn btn-success" />
+	</form>
+	
+	
+</div>
+
 {% endblock %}
-
